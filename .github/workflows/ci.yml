@@ -1,0 +1,25 @@
+name: continuous integration example
+
+on:
+  push:
+    branches:
+      main
+
+jobs:
+  build-and-test:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v1
+    - name: set up java
+      with:
+        java-version: "11"
+    - name: build with gradle
+      working-directory: .
+      run: |
+        chmod +x gradlew
+        ./gradlew build -x test
+    - name: Run test
+      working-directory: .
+      run: |
+        chmod +x gradlew
+        ./gradlew test
